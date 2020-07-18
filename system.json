@@ -1,0 +1,21 @@
+{
+  "name": "risklegacy",
+  "title": "Risk: Legacy",
+  "description": "Port of the Risk:Legacy Board Game to Foundry VTT",
+  "version": "0.0.1",
+  "templateVersion": 2,
+  "author": "spacemandev",
+  "scripts": [],
+  "esmodules": ["modules/legacy.js"],
+  "styles": ["styles/risk.css"],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "minimumCoreVersion": "0.6.0",
+  "compatibleCoreVersion": "0.6.5"
+}

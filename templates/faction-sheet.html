@@ -1,0 +1,45 @@
+<form class="{{cssClass}}" autocomplete="off">
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+      <div class="resource">
+        <img class="resource-icon" src="systems/risklegacy/assets/icons/missile.png" />
+        <input type="text" name="data.missiles" value="{{data.missiles}}" data-dtype="Number" />
+      </div>
+      <div class="resource">
+        <img class="resource-icon" src="systems/risklegacy/assets/icons/star.png" />
+        <input type="text" name="data.stars" value="{{data.stars}}" data-dtype="Number" />
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="powers">Powers</a>
+    <a class="item" data-tab="cards">Cards</a>
+    <a class="item" data-tab="gamestatus">Record</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Game Record Tab --}}
+    <div class="tab record-container" data-group="primary" data-tab="record">
+      <header class="record-header">
+        <h3 class="small-item">Game</h3>
+        <h3 class="player">Player</h3>
+        <h3 class="starting">Starting Territory</h3>
+        <h3 class="small-item">Won</h3>
+        <h3 class="small-item">Held On</h3>
+        <h3 class="small-item">Elim</h3>
+        <a class="record-control" data-action="create"><i class="fas fa-plus"></i></a>
+      </header>
+    </div>
+    {{!-- Cards Tab --}}
+    <div class="tab card-container" data-group="primary" data-tab="cards"></div>
+
+    {{!-- Powers Tab --}}
+    <div class="tab power-container" data-group="primary" data-tab="powers"></div>
+  </section>
+</form>

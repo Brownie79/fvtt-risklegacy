@@ -1,0 +1,24 @@
+{
+  "Actor": {
+    "types": ["faction", "troops"],
+    "faction": {
+      "isBringerOfNuclearFire": false,
+      "missiles": 0,
+      "stars": 0,
+      "record": {}
+    },
+    "troops": {}
+  },
+  "Item": {
+    "types": ["power", "territory"],
+    "power": {
+      "name": "",
+      "type": ""
+    },
+    "territory": {
+      "name": "",
+      "continent": "",
+      "value": 1
+    }
+  }
+}

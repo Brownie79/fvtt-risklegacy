@@ -1,0 +1,113 @@
+.risk .window-content {
+  height: 100%;
+  padding: 5px;
+  overflow-y: hidden;
+}
+.risk .sheet-header {
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+.risk .sheet-header .profile-img {
+  flex: 0 0 100px;
+  height: 200px;
+  margin-right: 10px;
+}
+.risk .sheet-header .header-fields {
+  flex: 1;
+  height: 100px;
+}
+
+.risk .resource-icon {
+  height: 100%;
+  width: 100px;
+  object-fit: contain;
+}
+
+.risk .resource {
+  width: 50%;
+  height: 40px;
+  margin-top: 10px;
+  float: left;
+  text-align: center;
+}
+.risk .resource input {
+  width: 100px;
+  height: 100%;
+}
+
+.risk .tabs {
+  height: 40px;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+}
+.risk .tabs .item {
+  line-height: 40px;
+  font-weight: bold;
+}
+.risk .tabs .item.active {
+  text-decoration: underline;
+  text-shadow: none;
+}
+
+.risk .sheet-body {
+  overflow: hidden;
+}
+
+.risk .sheet-body .tab {
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.power-starter {
+  background-color: darkseagreen;
+}
+.power-knockout {
+  background-color: cadetblue;
+}
+.power-missile {
+  background-color: rosybrown;
+}
+.power-weakness {
+  background-color: yellow;
+}
+.power-mission {
+  background-color: crimson;
+}
+
+.risk .record-container {
+  display: grid;
+}
+
+.risk .record-header {
+  display: inline-flex;
+}
+
+.risk .small-item {
+  width: 50px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.risk .player {
+  width: 150px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.risk .starting {
+  width: 250px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.risk a.record-control {
+  flex: 0 0 20px;
+  text-align: center;
+  line-height: 28px;
+  border: none;
+}
