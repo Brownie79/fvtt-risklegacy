@@ -6,7 +6,7 @@
   "templateVersion": 2,
   "author": "spacemandev",
   "scripts": [],
-  "esmodules": ["modules/legacy.js"],
+  "esmodules": ["modules/legacy.js", "lib/js-yaml.js"],
   "styles": ["styles/risk.css"],
   "packs": [],
   "languages": [

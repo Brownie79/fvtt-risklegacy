@@ -13,6 +13,7 @@
     "types": ["power", "territory", "scar"],
     "power": {
       "name": "",
+      "description": "",
       "type": ""
     },
     "territory": {

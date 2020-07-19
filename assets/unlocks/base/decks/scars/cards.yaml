@@ -1,0 +1,9 @@
+namespace: bunker.scars.base.risklegacy.spacemandev
+data:
+  tokenImg: scar_bunker.png
+imgPath: bunker.jpg
+---
+namespace: ammo_shortage.scars.base.risklegacy.spacemandev
+data:
+  tokenImg: scar_ammo_shortage.png
+imgPath: bunker.jpg
