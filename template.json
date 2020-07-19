@@ -10,7 +10,7 @@
     "troops": {}
   },
   "Item": {
-    "types": ["power", "territory"],
+    "types": ["power", "territory", "scar"],
     "power": {
       "name": "",
       "type": ""
@@ -19,6 +19,11 @@
       "name": "",
       "continent": "",
       "value": 1
+    },
+    "scar": {
+      "name": "",
+      "cardImg": "",
+      "tokenImg": ""
     }
   }
 }
