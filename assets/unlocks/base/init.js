@@ -1,0 +1,1 @@
+console.log("Init Script for Base.js")

@@ -1,0 +1,16 @@
+<form autocomplete="off" onsubmit="event.preventDefault()">
+  <h1 class="module-header"> 
+    Game Packs!
+  </h1>
+  <h3>WARNING: Be VERY careful, once you open a pack, you can't <i>unopen</i> it</h3>
+  {{#each packs}}
+  <p style="display:flex">
+    <label style="flex:3">{{this.description}}</label>
+    {{#if this.opened}}
+    <label style="flex:1">Opened!</label>
+    {{else}}
+    <button name="{{this.name}}" id="{{this.name}}" value="{{this.name}}" style="flex:1">Open</button>
+    {{/if}}
+  </p>
+  {{/each}}
+</form>
