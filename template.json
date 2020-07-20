@@ -1,30 +1,44 @@
 {
-  "Actor": {
-    "types": ["faction", "troops"],
-    "faction": {
-      "isBringerOfNuclearFire": false,
-      "missiles": 0,
-      "stars": 0,
-      "record": {}
+    "Actor": {
+        "types": [
+            "faction",
+            "troops"
+        ],
+        "faction": {
+            "isBringerOfNuclearFire": false,
+            "missiles": 0,
+            "stars": 0,
+            "record": {}
+        },
+        "troops": {}
     },
-    "troops": {}
-  },
-  "Item": {
-    "types": ["power", "territory", "scar"],
-    "power": {
-      "name": "",
-      "description": "",
-      "type": ""
-    },
-    "territory": {
-      "name": "",
-      "continent": "",
-      "value": 1
-    },
-    "scar": {
-      "name": "",
-      "cardImg": "",
-      "tokenImg": ""
+    "Item": {
+        "types": [
+            "power",
+            "territory",
+            "scar",
+            "PDFoundry_PDF"
+        ],
+        "power": {
+            "name": "",
+            "description": "",
+            "type": ""
+        },
+        "territory": {
+            "name": "",
+            "continent": "",
+            "value": 1
+        },
+        "scar": {
+            "name": "",
+            "cardImg": "",
+            "tokenImg": ""
+        },
+        "PDFoundry_PDF": {
+            "url": "",
+            "code": "",
+            "offset": 0,
+            "cache": false
+        }
     }
-  }
 }

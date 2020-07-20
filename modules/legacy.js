@@ -19,3 +19,12 @@ Hooks.on('ready', async () => {
   let gamepacks = jsyaml.safeLoad(await (await fetch('systems/risklegacy/assets/unlocks/unlocks.yaml')).text()).packs;
   registerSettings(gamepacks); 
 }); 
+
+Hooks.on("renderJournalDirectory", (app, html, data) => {
+  const rulesButton = $('<button  style="min-width: 96%; margin: 10px 6px;">Base Rules</button>')
+
+  html.find(".directory-footer").append(rulesButton);
+  rulesButton.click((ev) => {
+    ui.PDFoundry.openURL('systems/risklegacy/assets/rules.pdf');
+  })
+})
