@@ -14,11 +14,8 @@ Hooks.once("init", async () => {
 });
 
 Hooks.on('ready', async () => {
-
-
   //Parse the packs
   log("Getting Risk Legacy Ready");
   let gamepacks = jsyaml.safeLoad(await (await fetch('systems/risklegacy/assets/unlocks/unlocks.yaml')).text()).packs;
-  log(gamepacks); //list of objects
   registerSettings(gamepacks); 
 }); 

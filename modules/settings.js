@@ -54,19 +54,19 @@ class SettingsForm extends FormApplication{
       packs: packs
     }
 
+    //sets click listeners on all the buttons 
+    //runs the init.js of the pock
     Hooks.on("renderSettingsForm", async () => {
       for(let pack of Object.keys(packs)){
         $(`#${pack}`).on("click", async (evt) => {
           game.settings.set(system, `${evt.target.value}-opened`, true);
+          let jsFile = await (await fetch(`systems/risklegacy/assets/unlocks/${pack}/init.js`)).text();
+          eval(jsFile); /// BIG MAGIC
         })
       }  
     })
 
     return data;
-  }
-
-  openPack(_packname){
-    console.log(_packname)
   }
 
   async _updateObject(evt, data) { }
