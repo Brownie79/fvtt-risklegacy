@@ -7,6 +7,7 @@ main().then(() => {
 async function main(){
   // Import Powers As Items
   await importPowers();
+  await importScars();
 }
 
 async function importPowers() {
@@ -30,4 +31,31 @@ async function importPowers() {
       }
     })
   }
+}
+
+async function importScars() {
+  const scarsFile = await (await fetch('systems/risklegacy/assets/unlocks/base/scars/cards.yaml')).text()
+  const scars = jsyaml.safeLoadAll(scarsFile);
+
+  let folderId = (await Folder.create({ name: 'Scars', type: "Item", parent: null })).id;
+  for (let scarObj of scars){
+    // Create multiple copies of the scar cards
+    for(let i=0; i< scarObj.qty; i++){
+      await Item.create({
+        name: scarObj.namespace.split('.')[0],
+        type: "scar",
+        folder: folderId,
+        img: `systems/risklegacy/assets/unlocks/base/scars/images/${scarObj.data.tokenImg}`,
+        data: {
+          cardImg: scarObj.imgPath,
+          tokenImg: scarObj.data.tokenImg
+        }
+      })        
+    }
+  }
+}
+
+async function importTerritories() {
+  //Register BOTH as Item and Rolltable
+  //Requires Building a Compendium 
 }
