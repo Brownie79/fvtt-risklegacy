@@ -59,8 +59,9 @@ class SettingsForm extends FormApplication{
     Hooks.on("renderSettingsForm", async () => {
       for(let pack of Object.keys(packs)){
         $(`#${pack}`).on("click", async (evt) => {
-          game.settings.set(system, `${evt.target.value}-opened`, true);
+          //game.settings.set(system, `${evt.target.value}-opened`, true);
           let jsFile = await (await fetch(`systems/risklegacy/assets/unlocks/${pack}/init.js`)).text();
+          console.log(typeof jsFile);
           eval(jsFile); /// BIG MAGIC
         })
       }  
