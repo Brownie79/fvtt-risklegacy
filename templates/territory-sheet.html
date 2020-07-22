@@ -1,0 +1,17 @@
+<form class="{{cssClass}}" autocomplete="off" style="background-image: url(systems/risklegacy/assets/unlocks/base/territories/images/{{item.data.continent}}.JPG); background-size: 432px 600px; background-repeat: no-repeat">
+    <div class="sheet-body">
+        <ol class="plusminus">
+            <li><a class="territory-plus" data-action="create"><i class="fas fa-plus"></i></a></li>
+            <li><a class="territory-minus" data-action="delete"><i class="fas fa-minus"></i></a></li>
+        </ol>
+        <img class="first" src="systems/risklegacy/assets/_marks/coin.png" />
+        {{#ifCond item.data.value '>=' 2}}
+          <ol class="coins">
+            {{#for 1 item.data.value 1}}
+              <li class="coin"><img class="coin" src="systems/risklegacy/assets/_marks/coin.png" /></li>
+            {{/for}}
+          </ol>
+        {{/ifCond}}
+    </div>
+  </form>
+  

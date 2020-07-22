@@ -8,7 +8,10 @@
       "isBringerOfNuclearFire": false,
       "missiles": 0,
       "stars": 0,
-      "record": {}
+      "record": {},
+      "powers": [],
+      "territories": [],
+      "scar": {}
     },
     "troops": {}
   },
@@ -16,6 +19,7 @@
     "types": [
       "power",
       "territory",
+      "coin",
       "scar",
       "PDFoundry_PDF"
       ],
@@ -27,6 +31,10 @@
     "territory": {
       "name": "",
       "continent": "",
+      "value": 1
+    },
+    "coin": {
+      "name": "",
       "value": 1
     },
     "scar": {

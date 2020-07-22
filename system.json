@@ -8,6 +8,7 @@
   "scripts": [],
   "esmodules": [
     "modules/legacy.js",
+    "modules/registerHandlebarHelpers.js",
     "lib/js-yaml.js",
     "pdfoundry-dist/bundle.js"
 ],

@@ -1,29 +1,87 @@
 <form class="{{cssClass}}" autocomplete="off">
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
     <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
-      <div class="resource">
+      <div class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></div>
+      <div class="resource missiles">
         <img class="resource-icon" src="systems/risklegacy/assets/icons/missile.png" />
         <input type="text" name="data.missiles" value="{{data.missiles}}" data-dtype="Number" />
       </div>
-      <div class="resource">
+      <div class="resource stars">
         <img class="resource-icon" src="systems/risklegacy/assets/icons/star.png" />
         <input type="text" name="data.stars" value="{{data.stars}}" data-dtype="Number" />
+      </div>
+      <div class="scar-container">
+        <img class="scar" src="{{data.scar.img}}" data-item-id="{{data.scar._id}}" height="56" />
       </div>
     </div>
   </header>
 
+  <section class="profile">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="300" />
+  </section>
+
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="powers">Powers</a>
     <a class="item" data-tab="cards">Cards</a>
-    <a class="item" data-tab="gamestatus">Record</a>
+    <a class="item" data-tab="powers">Powers</a>
+    <a class="item" data-tab="record">Record</a>
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
+    {{!-- Cards Tab --}}
+    <div class="tab card-container" data-group="primary" data-tab="cards">
+      <ol class="card-list">
+        {{#each data.territories as |card id|}}
+        {{#if card.data.continent}}
+        <li class="card gridrow" data-item-id="{{card._id}}" style="background-image: url(systems/risklegacy/assets/unlocks/base/territories/images/{{card.data.continent}}.JPG); background-size: 131.2px 182.4px; background-repeat: no-repeat">
+          <div class="territory">
+            <ol class="plusminus">
+              <li><a class="territory-plus" data-action="create"><i class="fas fa-plus"></i></a></li>
+              <li><a class="territory-minus" data-action="delete"><i class="fas fa-minus"></i></a></li>
+            </ol>
+            <div class="item-controls">
+              <a class="item-control item-view"><i class="fas fa-eye"></i></a>
+              <a class="item-control item-delete"><i class="fas fa-times"></i></a>
+            </div>
+            <img class="first" src="systems/risklegacy/assets/_marks/coin.png" />
+            {{#ifCond card.data.value '>=' 2}}
+              <ol class="coins">
+                {{#for 1 card.data.value 1}}
+                  <li class="coin"><img class="coin" src="systems/risklegacy/assets/_marks/coin.png" /></li>
+                {{/for}}
+              </ol>
+            {{/ifCond}}
+          </div>
+        </li>
+        {{else}}
+        <li class="card gridrow" data-item-id="{{card._id}}" style="background-image: url(systems/risklegacy/assets/unlocks/base/territories/images/coin.JPG); background-size: 131.2px 182.4px; background-repeat: no-repeat">
+          <div class="coin-card">
+            <div class="item-controls">
+              <a class="item-control item-delete"><i class="fas fa-times"></i></a>
+            </div>
+          </div>
+        </li>
+        {{/if}}
+        {{/each}}
+      </ol>
+    </div>
+
+    {{!-- Powers Tab --}}
+    <div class="tab power-container" data-group="primary" data-tab="powers">
+      <ol class="power-list">
+        {{#each data.powers as |power id|}}
+        <li class="power gridrow power-{{power.data.type}}" data-item-id="{{power._id}}">
+          <div class="description">
+            {{power.data.description}}
+          </div>
+          <div class="item-controls"><a class="item-control item-delete"><i class="fas fa-trash"></i></a></div>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+
     {{!-- Game Record Tab --}}
     <div class="tab record-container" data-group="primary" data-tab="record">
       <header class="record-header">
@@ -33,13 +91,8 @@
         <h3 class="small-item">Won</h3>
         <h3 class="small-item">Held On</h3>
         <h3 class="small-item">Elim</h3>
-        <a class="record-control" data-action="create"><i class="fas fa-plus"></i></a>
+        <h3 class="small-item"><a class="record-control" data-action="create"><i class="fas fa-plus"></i></a></h3>
       </header>
     </div>
-    {{!-- Cards Tab --}}
-    <div class="tab card-container" data-group="primary" data-tab="cards"></div>
-
-    {{!-- Powers Tab --}}
-    <div class="tab power-container" data-group="primary" data-tab="powers"></div>
   </section>
 </form>

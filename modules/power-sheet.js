@@ -2,10 +2,9 @@ export class PowerItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["risk"],
+      classes: ["risk", "power-sheet"],
       template: "systems/risklegacy/templates/power-sheet.html",
       width: 600,
-      height: 300,
     });
   }
 

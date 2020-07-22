@@ -1,113 +1,309 @@
-.risk .window-content {
+.risk.faction-sheet .window-content .editable {
+  display: grid;
+  grid-template-columns: [body] 600px 10px [img] 300px;
+  grid-template-rows: [first] 83px [tabs] 28px [main] auto;
+  max-height: 554px;
+}
+
+.risk.power-sheet .window-content {
+  padding: 0px;
+}
+.risk.power-sheet .window-content .editable {
+  padding: 8px;
+}
+.risk.power-sheet h1 {
+  border: none;
+}
+
+.risk.faction-sheet .sheet-header {
+  grid-row-start: first;
+}
+
+.risk.faction-sheet .sheet-header .header-fields {
+  display: grid;
+  grid-template-columns: [name] 302px [missiles] 114px [stars] 114px [scar] 56px;
+  border-bottom: 2px solid #782e22;
+  padding-bottom: 1em;
+  grid-column-start: body;
+  column-gap: 4px;
+}
+
+.risk.faction-sheet .profile {
+  grid-column: img;
+  grid-row: first / -1;
   height: 100%;
-  padding: 5px;
-  overflow-y: hidden;
-}
-.risk .sheet-header {
-  height: 200px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-}
-.risk .sheet-header .profile-img {
-  flex: 0 0 100px;
-  height: 200px;
-  margin-right: 10px;
-}
-.risk .sheet-header .header-fields {
-  flex: 1;
-  height: 100px;
+  max-height: 554px;
 }
 
-.risk .resource-icon {
-  height: 100%;
-  width: 100px;
-  object-fit: contain;
-}
-
-.risk .resource {
-  width: 50%;
-  height: 40px;
-  margin-top: 10px;
-  float: left;
-  text-align: center;
-}
-.risk .resource input {
-  width: 100px;
+.risk.faction-sheet .profile .profile-img {
   height: 100%;
 }
 
-.risk .tabs {
-  height: 40px;
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #aaa;
-}
-.risk .tabs .item {
-  line-height: 40px;
-  font-weight: bold;
-}
-.risk .tabs .item.active {
-  text-decoration: underline;
-  text-shadow: none;
+.risk.faction-sheet .sheet-tabs.tabs {
+  grid-row-start: tabs;
+  grid-column-start: body;
 }
 
-.risk .sheet-body {
-  overflow: hidden;
+.risk.faction-sheet .sheet-body {
+  grid-row-start: main;
+  grid-column-start: body;
+  place-self: stretch stretch;
+  overflow: auto;
 }
 
-.risk .sheet-body .tab {
+.risk.faction-sheet .charname {
+  grid-column-start: name;
+  font-size: 2em;
+  height: 56px;
+}
+.risk.faction-sheet .charname input {
+  height: 2em;
+  padding: 10px 5px 10px 5px;
+}
+
+.risk.faction-sheet .resource {
+  display: grid;
+  grid-template-columns: [img] 56px [input] 56px;
+  margin-left: 2px;
+  column-gap: 2px;
+}
+
+.risk.faction-sheet .resource.missiles {
+  grid-column-start: missiles;
+  width: 4em;
+  height: 4em;
+}
+
+.risk.faction-sheet .resource.stars {
+  grid-column-start:stars;
+  width: 4em;
+  height: 4em;
+}
+
+.risk.faction-sheet .resource, .risk.faction-sheet .resource input {
+  height: 1em;
+  width: 1em;
+}
+
+.risk.faction-sheet .resource img {
+  grid-column-start: img;
+  width: 56px;
+  height: 56px;
+  font-size: 2em;
+}
+
+.risk.faction-sheet .resource input {
+  padding-left: 0.2em;
+  grid-column-start: input;
+  font-size: 4em !important;
+}
+
+.risk.faction-sheet .scar-container {
+  height: 56px;
+}
+
+.risk.faction-sheet .record-header {
+  border: 2px solid black;
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr 1fr 1fr 20px;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.risk.faction-sheet .record-header :nth-child(n+2):nth-last-child(n+2)::before {
+  content: "|";
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.risk.faction-sheet .tab.active {
   height: 100%;
-  overflow-y: hidden;
+  overflow: auto;
+}
+
+.risk.faction-sheet .power-list {
+  list-style-type: none;
+  display: grid;
+  grid-auto-rows: minmax(35px, auto);
+  gap: 15px 10px;
+}
+
+.risk.faction-sheet .power-list li {
+  border: 2px solid #222;
+  align-self: stretch;
+  padding: 10px;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 10px;
+}
+
+.risk.faction-sheet .power-list li .item-controls {
+  place-self: start center;
+}
+
+.power {
+  margin-right: 5px;
 }
 
 .power-starter {
   background-color: darkseagreen;
 }
+
 .power-knockout {
   background-color: cadetblue;
 }
+
 .power-missile {
   background-color: rosybrown;
 }
+
 .power-weakness {
   background-color: yellow;
 }
+
 .power-mission {
   background-color: crimson;
 }
 
-.risk .record-container {
+.risk.territory {
+  overflow:hidden;
+}
+
+.risk.territory .plusminus {
+  list-style-type: none;
   display: grid;
+  position:absolute;
+  top: 570px;
+  grid-template-columns: 195px 50px;
+  width: 100%;
+  margin-left: 37px;
+  overflow: hidden;
 }
 
-.risk .record-header {
-  display: inline-flex;
+.risk .plusminus li {
+  display: inline;
+  justify-self: center;
 }
 
-.risk .small-item {
-  width: 50px;
-  font-weight: bold;
-  text-align: center;
+.risk .card-list {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(4, 131.2px);
+  grid-auto-rows: 182.4px;
+  gap: 15px 10px;
+  /* gap: 15px 10px; */
 }
 
-.risk .player {
-  width: 150px;
-  font-weight: bold;
-  text-align: center;
+.risk .card-list .territory, .risk .card-list .coin-card {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  border: 2px outset #999;
+  box-shadow: 6px 7px 10px -2px black;
 }
 
-.risk .starting {
-  width: 250px;
-  font-weight: bold;
-  text-align: center;
+.risk .card-list .plusminus {
+  list-style-type: none;
+  display: grid;
+  position: absolute;
+  /* top: 570px; */
+  bottom: 0;
+  /* grid-template-columns: 195px 50px; */
+  width: 100%;
+  /* margin-left: 37px; */
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 6px;
+  margin-bottom: 3px;
+  grid-template-columns: 75px 1px;
 }
 
-.risk a.record-control {
-  flex: 0 0 20px;
-  text-align: center;
-  line-height: 28px;
+.risk .card-list .item-controls {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+}
+
+.risk.territory .sheet-body img.first {
+  border: none; 
+  width: 108px;
+  position: absolute;
+  top: 365px;
+  left: 51px;
+}
+
+.risk .coins {
+  list-style-type: none;
+}
+
+.risk.territory .sheet-body .coins img.coin {
+  width: 108px;
+  position: absolute;
   border: none;
+}
+
+.risk.territory .sheet-body .coins :nth-child(1) img.coin {
+  top: 365px;
+  left: 168px;
+}
+
+.risk.territory .sheet-body .coins :nth-child(2) img.coin {
+  top: 365px;
+  left: 285px;
+}
+
+.risk.territory .sheet-body .coins :nth-child(3) img.coin {
+  top: 485px;
+  left: 51px;
+}
+
+.risk.territory .sheet-body .coins :nth-child(4) img.coin {
+  top: 485px;
+  left: 168px;
+}
+
+.risk.territory .sheet-body .coins :nth-child(5) img.coin {
+  top: 485px;
+  left: 285px;
+}
+
+.risk .territory img.first {
+  width: 36px;
+  position: absolute;
+  top: 96px;
+  left: 9px;
+  border: none;
+}
+
+.risk .territory .coins img.coin {
+  width: 36px;
+  position: absolute;
+  border: none;
+  border-radius: 100px;
+}
+
+.risk .territory .coins :nth-child(1) img.coin {
+  top: 96px;
+  left: 46px;
+}
+
+.risk .territory .coins :nth-child(2) img.coin {
+  top: 96px;
+  left: 83px;
+}
+
+.risk .territory .coins :nth-child(3) img.coin {
+  top: 132px;
+  left: 9px;
+}
+
+.risk .territory .coins :nth-child(4) img.coin {
+  top: 132px;
+  left: 46px;
+}
+
+.risk .territory .coins :nth-child(5) img.coin {
+  top: 132px;
+  left: 83px;
 }

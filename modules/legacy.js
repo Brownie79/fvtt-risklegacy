@@ -1,6 +1,9 @@
 import { registerSettings } from './settings.js';
 import { FactionActorSheet } from "./faction-sheet.js";
 import { PowerItemSheet } from "./power-sheet.js";
+import { TerritoryItemSheet } from "./territory-sheet.js";
+import { ScarItemSheet } from "./scar-sheet.js";
+import { CoinItemSheet } from "./coin-sheet.js";
 
 export const log = (...args) => console.log("Risk Legacy | " + args);
 
@@ -10,7 +13,10 @@ Hooks.once("init", async () => {
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("risk", FactionActorSheet, { types: ["faction"], makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("risk", PowerItemSheet, { makeDefault: false });
+  Items.registerSheet("risk", PowerItemSheet, { types: ["power"], makeDefault: true });
+  Items.registerSheet("risk", TerritoryItemSheet, {types: ["territory"], makeDefault: true });
+  Items.registerSheet("risk", CoinItemSheet, { types: ["coin"], makeDefault: true })
+  Items.registerSheet("risk", ScarItemSheet, { types: ["scar"], makeDefault: true });
 });
 
 Hooks.on('ready', async () => {
