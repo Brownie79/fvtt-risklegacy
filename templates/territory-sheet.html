@@ -8,7 +8,7 @@
       {{#ifCond item.data.value '>=' 2}}
         <ol class="coins">
           {{#for 1 item.data.value 1}}
-            <li class="coin"><img class="coin" src="{{item.data.coinImg}}" /></li>
+            <li class="coin"><img class="coin" src="{{../item.data.coinImg}}" /></li>
           {{/for}}
         </ol>
       {{/ifCond}}

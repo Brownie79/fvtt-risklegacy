@@ -12,8 +12,9 @@
         <input class="len-{{length data.stars}}" type="text" name="data.stars" value="{{data.stars}}" data-dtype="Number" />
       </div>
       <div class="scar-container">
-        {{#unless (isEmpty data.scar)}}
+        {{#unless (isEmpty data.scar.img)}}
           <img class="scar" src="{{data.scar.img}}" data-item-id="{{data.scar._id}}" height="56" width="56" />
+          <a class="item-control scar-delete"><i class="fas fa-times"></i></a>
         {{/unless}}
       </div>
     </div>
@@ -36,7 +37,7 @@
     <div class="tab card-container" data-group="primary" data-tab="cards">
       <ol class="card-list">
         {{#each data.territories as |card id|}}
-        {{#if card.data.continent}}
+        {{#if (isEmpty card.data.continent)}}
         <li class="card gridrow" data-item-id="{{card._id}}" style="background-image: url({{card.img}}); background-size: 131.2px 182.4px; background-repeat: no-repeat">
           <div class="territory">
             <ol class="plusminus">

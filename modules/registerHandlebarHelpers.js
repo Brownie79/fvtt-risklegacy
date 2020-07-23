@@ -42,6 +42,6 @@ Hooks.once("ready", async () => {
     })
 
     Handlebars.registerHelper('isEmpty', (obj) => {
-        return Object.keys(obj).length === 0;
+        return obj === undefined || obj === null || Object.keys(obj).length === 0;
     });
 });

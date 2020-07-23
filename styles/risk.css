@@ -115,6 +115,18 @@
 .risk.faction-sheet .scar-container {
   height: 56px;
   border: 1px solid black;
+  position:relative;
+}
+
+.risk.faction-sheet .scar-container:not(:hover) .scar-delete {
+    display:none;
+}
+
+.risk.faction-sheet .scar-container .scar-delete {
+    top: 0px;
+    right: 2px;
+    font-size: 12px;
+    position: absolute;
 }
 
 .risk.faction-sheet .record-header {

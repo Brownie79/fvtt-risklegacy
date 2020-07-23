@@ -37,7 +37,7 @@ export class FactionActorSheet extends ActorSheet {
     // Assign and return
     data.data.powers = Object.values(powers);
     data.data.territories = Object.values(territories);
-    if ( Object.keys(data.data.scar).length === 0 && scars.length > 0 ) this.actor.update({'data.scar': scars[0]});
+    if ( (Object.keys(data.data.scar).length === 0 || !data.data.scar.img) && scars.length > 0 ) this.actor.update({'data.scar': scars[0]});
   }
 
 
@@ -101,6 +101,24 @@ export class FactionActorSheet extends ActorSheet {
       const el = $(ev.currentTarget);
       const scar = this.actor.getOwnedItem(el.data("itemId"));
       scar.sheet.render(true);
+    });
+
+    html.find('.scar-delete').click(ev => {
+      const scars = this.actor.items.filter(obj => obj.type === 'scar');
+      scars.forEach(obj => {
+        //this.actor.update({ "data.scar" : obj });
+        this.actor.deleteOwnedItem(obj._id);
+      });
+
+      this.actor.update({"data.scar": {
+        'img': '',
+        '_id': '',
+        'data': {},
+        'name': '',
+        'sort': 0,
+        'type': '',
+        'flags': {}
+      }});
     });
   }
   
