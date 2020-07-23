@@ -1,4 +1,5 @@
 'use strict';
+const path = 'systems/risklegacy/assets/unlocks/base/'
 
 main().then(() => {
   console.log("RISK LEGACY | Finished importing base game!")
@@ -11,10 +12,12 @@ async function main(){
   await importTerritories();
   await importCoinCards();
   await importFactions();
+  await importStickerSheet();
 }
 
 async function importPowers() {
-  const powersFile = await (await fetch('systems/risklegacy/assets/unlocks/base/powers/cards.yaml')).text()
+  let folderPath = path + 'powers/'
+  const powersFile = await (await fetch(folderPath+'cards.yaml')).text()
   const powers = jsyaml.safeLoadAll(powersFile);
 
   //Create Folder for Starting Powers
@@ -37,10 +40,11 @@ async function importPowers() {
 }
 
 async function importScars() {
-  let folderPath = 'systems/risklegacy/assets/unlocks/base/scars/';
+  let folderPath = path+'scars/';
   const scarsFile = await (await fetch(folderPath+'cards.yaml')).text()
   const scars = jsyaml.safeLoadAll(scarsFile);
 
+  //Scars
   let folderId = (await Folder.create({ name: 'Scars', type: "Item", parent: null })).id;
   for (let scarObj of scars){
     // Create multiple copies of the scar cards
@@ -50,7 +54,7 @@ async function importScars() {
         type: "scar",
         folder: folderId,
         permission: {default: 3},
-        img: `systems/risklegacy/assets/unlocks/base/scars/images/${scarObj.data.tokenImg}`,
+        img: folderPath+`images/${scarObj.data.tokenImg}`,
         data: {
           cardImg: folderPath+"images/"+scarObj.imgPath,
           tokenImg: folderPath+scarObj.data.tokenImg
@@ -58,10 +62,12 @@ async function importScars() {
       })        
     }
   }
+
+
 }
 
 async function importTerritories() {
-  const folderPath = 'systems/risklegacy/assets/unlocks/base/territories/'
+  const folderPath = path+'territories/'
   const territoriesFile = await (await fetch(folderPath+'cards.yaml')).text()
   const territories = jsyaml.safeLoadAll(territoriesFile);
   const folderId = (await Folder.create({name: "Territories", type:"Item", parent: null})).id;
@@ -98,7 +104,7 @@ async function importCoinCards(){
 }
 
 async function importFactions(){
-  const folderPath = 'systems/risklegacy/assets/unlocks/base/factions/'
+  const folderPath = path+'factions/'
   const factionsFile = await (await fetch(folderPath+'cards.yaml')).text()
   const factions = jsyaml.safeLoadAll(factionsFile);
 
@@ -143,5 +149,42 @@ async function importFactions(){
       folder: folderId,
       permission: {default: 3},
     })
+  }
+}
+
+async function importStickerSheet(){
+  let folderPath = path+'stickersheet/'
+  //Parent Folder
+  let stickerSheetFolder = (await Folder.create({ name: 'Sticker Sheet', type: "Item", parent: null })).id;
+  let stickersFile = await (await fetch(folderPath+'cards.yaml')).text()
+  let stickers = jsyaml.safeLoadAll(stickersFile);
+
+  let beforeFirstGameFolder = (await Folder.create({ name: 'Before First Game', type: "Item", parent: stickerSheetFolder })).id;
+  let helOnFolder = (await Folder.create({ name: 'Held On', type: "Item", parent: stickerSheetFolder })).id;
+  let wonFolder = (await Folder.create({ name: 'Game Won', type: "Item", parent: stickerSheetFolder })).id;
+  
+  for(let sticker of stickers){
+    for(let q=0; q<sticker.qty;q++){
+      let stickerFolder = ""
+      if(sticker.data.folder == "Before First Game"){
+        stickerFolder = beforeFirstGameFolder
+      } else if (sticker.data.folder == "Held On"){
+        stickerFolder = helOnFolder
+      } else if(sticker.data.folder == "Game Won"){
+        stickerFolder = wonFolder
+      }
+      
+      await Item.create({
+        name: sticker.namespace.split(".")[0],
+        type: "scar",
+        folder: stickerFolder,
+        permission: {default: 3},
+        img: folderPath+`images/${sticker.imgPath}`,
+        data: {
+          cardImg: folderPath+`images/${sticker.imgPath}`,
+          tokenImg: folderPath+`images/${sticker.imgPath}`
+        }
+      })
+    }
   }
 }
