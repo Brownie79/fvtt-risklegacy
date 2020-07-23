@@ -7,5 +7,5 @@ qty: 3
 namespace: ammo_shortage.scars.base.risklegacy.spacemandev
 data:
   tokenImg: scar_ammo_shortage.png
-imgPath: bunker.jpg
+imgPath: ammo_shortage.jpg
 qty: 3

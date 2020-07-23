@@ -7,7 +7,7 @@
   "author": "spacemandev",
   "scripts": [],
   "esmodules": [
-    "modules/legacy.js",
+    "legacy.js",
     "modules/registerHandlebarHelpers.js",
     "lib/js-yaml.js",
     "pdfoundry-dist/bundle.js"

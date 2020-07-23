@@ -1,17 +1,18 @@
-import { registerSettings } from './settings.js';
-import { FactionActorSheet } from "./faction-sheet.js";
-import { PowerItemSheet } from "./power-sheet.js";
-import { TerritoryItemSheet } from "./territory-sheet.js";
-import { ScarItemSheet } from "./scar-sheet.js";
-import { CoinItemSheet } from "./coin-sheet.js";
+import { registerSettings } from './modules/settings.js';
+import { FactionActorSheet } from "./modules/faction-sheet.js";
+import { PowerItemSheet } from "./modules/power-sheet.js";
+import { TerritoryItemSheet } from "./modules/territory-sheet.js";
+import { ScarItemSheet } from "./modules/scar-sheet.js";
+import { CoinItemSheet } from "./modules/coin-sheet.js";
 
 export const log = (...args) => console.log("Risk Legacy | " + args);
 
 Hooks.once("init", async () => {
-  console.log("Initalizing Risk:Legacy Game System");
+  log("Initalizing Risk:Legacy Game System");
 
-  Actors.unregisterSheet("core", ActorSheet);
+  //Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("risk", FactionActorSheet, { types: ["faction"], makeDefault: true });
+  
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("risk", PowerItemSheet, { types: ["power"], makeDefault: true });
   Items.registerSheet("risk", TerritoryItemSheet, {types: ["territory"], makeDefault: true });
