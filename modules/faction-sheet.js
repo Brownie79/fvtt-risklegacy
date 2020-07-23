@@ -37,7 +37,7 @@ export class FactionActorSheet extends ActorSheet {
     // Assign and return
     data.data.powers = Object.values(powers);
     data.data.territories = Object.values(territories);
-    if ( !data.data.scar && scars.length > 0 ) data.data.scar = scars[0];
+    if ( Object.keys(data.data.scar).length === 0 && scars.length > 0 ) this.actor.update({'data.scar': scars[0]});
   }
 
 
@@ -77,16 +77,50 @@ export class FactionActorSheet extends ActorSheet {
       card.sheet.removeCoin();
     });
 
+    html.find('.record-add').click(ev => {
+      const el = $(ev.currentTarget);
+      const record = {
+        "player": "",
+        "starting_territory": "",
+        "game_end": "held_on" | "won" | "eliminated"
+      };
+      const records = this.getData().data.record;
+      records.push(record);
+      this.actor.update({ "data.record": records });
+    });
+
+    html.find('.record-delete').click(ev => {
+      const el = $(ev.currentTarget);
+      const index = $('.record-delete').index(el);
+      const records = this.getData().data.record;
+      records.splice(index, 1);
+      this.actor.update({ "data.record": records });
+    })
+
     html.find('.scar').click(ev => {
       const el = $(ev.currentTarget);
       const scar = this.actor.getOwnedItem(el.data("itemId"));
       scar.sheet.render(true);
     });
   }
-
-
   
   _updateObject(event, formData) {
+    const regex = /data\.record\[(?<index>\d+)\]\.(?<property>[a-zA-Z_]+)/;
+    const record = JSON.parse(JSON.stringify(this.actor.data.data.record));
+
+    for(let data of Object.keys(formData)) {
+      const res = regex.exec(data);
+      if(res !== null) {
+        record[parseInt(res.groups.index)][res.groups.property] = formData[data];
+        delete formData[data];
+      };
+    }
+
+    if(parseInt(formData["data.missiles"]) < 0) delete formData["data.missiles"];
+    if(parseInt(formData["data.stars"]) < 0) delete formData["data.stars"];
+
+    formData['data.record'] = record;
+
     console.log("Event: ", event);
     console.log("Form Data: ", formData);
 

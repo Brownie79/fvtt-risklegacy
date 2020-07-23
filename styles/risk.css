@@ -93,28 +93,62 @@
 }
 
 .risk.faction-sheet .resource input {
-  padding-left: 0.2em;
   grid-column-start: input;
+  font-size: 1em;
+  width: 56px;
+  height: 56px;
+}
+
+.risk.faction-sheet .resource input.len-1 {
   font-size: 4em !important;
+  padding-left: 0.2em;
+}
+
+.risk.faction-sheet .resource input.len-2 {
+  font-size: 3em !important;
+}
+
+.risk.faction-sheet .resource input.len-3 {
+  font-size: 2em !important;
 }
 
 .risk.faction-sheet .scar-container {
   height: 56px;
+  border: 1px solid black;
 }
 
 .risk.faction-sheet .record-header {
   border: 2px solid black;
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr 1fr 1fr 1fr 20px;
+  grid-template-columns: 1fr 2fr 2fr 1fr 20px;
   padding-top: 5px;
   padding-left: 5px;
-  padding-right: 5px;
+  margin-right: 5px;
 }
 
 .risk.faction-sheet .record-header :nth-child(n+2):nth-last-child(n+2)::before {
   content: "|";
+  margin-left: -2px;
+  margin-right: 5px;
+}
+
+.risk.faction-sheet .record-list {
+  list-style-type: none;
+  padding: 5px;
+}
+
+.risk.faction-sheet .record {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr 20px;
+}
+
+.risk.faction-sheet .record-control {
   padding-left: 5px;
-  padding-right: 5px;
+  place-self: center;
+}
+
+.risk.faction-sheet .record-control.record-add {
+  padding-left: 2px;
 }
 
 .risk.faction-sheet .tab.active {

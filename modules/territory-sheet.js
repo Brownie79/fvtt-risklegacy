@@ -32,10 +32,6 @@ export class TerritoryItemSheet extends ItemSheet {
       this.object.update(formData);
     }
 
-    test() {
-      return "Test";
-    }
-
     addCoin() {
       const value = this.item.data.data.value <= 1 ? 2 : this.item.data.data.value >= 5 ? 6 : this.item.data.data.value + 1;
       this.item.update({"data.value": value});

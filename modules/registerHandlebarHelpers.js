@@ -32,4 +32,12 @@ Hooks.once("ready", async () => {
         for(var i = from; i < to; i += incr) accum += block.fn(i);
         return accum;
     });
+
+    Handlebars.registerHelper('length', (obj) => {
+        return obj.length || obj.toString().length;
+    });
+
+    Handlebars.registerHelper('offset', (obj, num) => {
+        return parseInt(obj) + parseInt(num);
+    })
 });

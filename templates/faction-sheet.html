@@ -5,11 +5,11 @@
       <div class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></div>
       <div class="resource missiles">
         <img class="resource-icon" src="systems/risklegacy/assets/icons/missile.png" />
-        <input type="text" name="data.missiles" value="{{data.missiles}}" data-dtype="Number" />
+        <input class="len-{{length data.missiles}}" type="text" name="data.missiles" value="{{data.missiles}}" data-dtype="Number" />
       </div>
       <div class="resource stars">
         <img class="resource-icon" src="systems/risklegacy/assets/icons/star.png" />
-        <input type="text" name="data.stars" value="{{data.stars}}" data-dtype="Number" />
+        <input class="len-{{length data.stars}}" type="text" name="data.stars" value="{{data.stars}}" data-dtype="Number" />
       </div>
       <div class="scar-container">
         <img class="scar" src="{{data.scar.img}}" data-item-id="{{data.scar._id}}" height="56" />
@@ -88,11 +88,29 @@
         <h3 class="small-item">Game</h3>
         <h3 class="player">Player</h3>
         <h3 class="starting">Starting Territory</h3>
-        <h3 class="small-item">Won</h3>
-        <h3 class="small-item">Held On</h3>
-        <h3 class="small-item">Elim</h3>
-        <h3 class="small-item"><a class="record-control" data-action="create"><i class="fas fa-plus"></i></a></h3>
+        <h3 class="small-item">Game State</h3>
+        <h3 class="small-item"><a class="record-control record-add" data-action="create"><i class="fas fa-plus"></i></a></h3>
       </header>
+      <section class="record-body">
+        <ol class="record-list">
+          {{#each data.record as |record|}}
+            <li class="record-item">
+              <div class="record">
+                <span>Game #{{offset @index 1}}</span>
+                <input type="text" name="data.record[{{@index}}].player" value="{{record.player}}" />
+                <input type="text" name="data.record[{{@index}}].starting_territory" value="{{record.starting_territory}}" />
+                <select class="game_state" name="data.record[{{@index}}].game_state">
+                  <option value="" {{#ifCond record.game_state '===' ''}}selected{{/ifCond}}></option>
+                  <option value="won" {{#ifCond record.game_state '===' 'won'}}selected{{/ifCond}}>Won</option>
+                  <option value="held_on" {{#ifCond record.game_state '===' 'held_on'}}selected{{/ifCond}}>Held On</option>
+                  <option value="eliminated" {{#ifCond record.game_state '===' 'eliminated'}}selected{{/ifCond}}>Eliminated</option>
+                </select>
+                <a class="record-control record-delete"><i class="fas fa-trash"></i></a>
+              </div>
+            </li>
+          {{/each}}
+        </ol>
+      </section>
     </div>
   </section>
 </form>

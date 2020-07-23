@@ -1,7 +1,7 @@
-<form class="{{cssClass}}" autocomplete="off">
-  <header class="sheet-header">
-    <div class="header-fields">
-      <h3 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h3>
-    </div>
-  </header>
+<form class="{{cssClass}} power-{{item.data.type}}" autocomplete="off">
+  <div class="sheet-body">
+    <h1>
+      {{item.data.description}}
+    </h1>
+  </div>
 </form>
