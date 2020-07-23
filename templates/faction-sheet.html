@@ -12,7 +12,9 @@
         <input class="len-{{length data.stars}}" type="text" name="data.stars" value="{{data.stars}}" data-dtype="Number" />
       </div>
       <div class="scar-container">
-        <img class="scar" src="{{data.scar.img}}" data-item-id="{{data.scar._id}}" height="56" />
+        {{#unless (isEmpty data.scar)}}
+          <img class="scar" src="{{data.scar.img}}" data-item-id="{{data.scar._id}}" height="56" />
+        {{/unless}}
       </div>
     </div>
   </header>

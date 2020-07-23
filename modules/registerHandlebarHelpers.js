@@ -40,4 +40,8 @@ Hooks.once("ready", async () => {
     Handlebars.registerHelper('offset', (obj, num) => {
         return parseInt(obj) + parseInt(num);
     })
+
+    Handlebars.registerHelper('isEmpty', (obj) => {
+        return Object.keys(obj).length === 0;
+    });
 });
