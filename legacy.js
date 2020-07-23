@@ -27,7 +27,7 @@ Hooks.on('ready', async () => {
   registerSettings(gamepacks); 
 }); 
 
-Hooks.on("renderJournalDirectory", (app, html, data) => {
+Hooks.on("renderActorDirectory", (app, html, data) => {
   const rulesButton = $('<button  style="min-width: 96%; margin: 10px 6px;">Base Rules</button>')
 
   html.find(".directory-footer").append(rulesButton);

@@ -130,6 +130,10 @@ async function importFactions(){
       img: folderPath+'/images/'+faction.data.three_img,
       folder: folderId,
       permission: {default: 3},
+      token:{
+        width: 2,
+        height: 2
+      }
     })
     //Ceate an HQ Sheet
     await Actor.create({

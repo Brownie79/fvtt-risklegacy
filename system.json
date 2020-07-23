@@ -10,7 +10,8 @@
     "legacy.js",
     "modules/registerHandlebarHelpers.js",
     "lib/js-yaml.js",
-    "pdfoundry-dist/bundle.js"
+    "pdfoundry-dist/bundle.js",
+    "lib/drop.js"
 ],
   "styles": [
     "styles/risk.css"
