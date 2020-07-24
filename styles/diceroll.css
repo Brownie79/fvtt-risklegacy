@@ -1,0 +1,9 @@
+.dice-tooltip{
+  display: block !important;
+}
+.part-formula {
+  display: none !important;
+}
+.dice-total{
+  display: none !important;
+}

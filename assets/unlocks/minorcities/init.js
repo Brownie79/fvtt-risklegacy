@@ -1,4 +1,4 @@
-'use string';
+'use strict';
 const path = 'systems/risklegacy/assets/unlocks/minorcities/';
 
 if(game.settings.get('risklegacy', 'base-opened')){
@@ -9,17 +9,19 @@ if(game.settings.get('risklegacy', 'base-opened')){
   ui.notifications.error("Please open the Base Pack First");
 }
 
+
 async function main(){
   await importRules(); //DONE
   await importScars();
   await importEvents();
   await importDraftCards();
+  await importMacros();
 }
 
 async function importRules(){
   const folderPath = path+'rules/'
-  const centerX = canvas.dimensions.width / 2
-  const centerY = canvas.dimensions.height / 2
+  const centerX = canvas.dimensions.width / 4
+  const centerY = canvas.dimensions.height / 4
 
   //Turn Them Into Tiles
   // First the Biohazard Tile:
@@ -33,9 +35,7 @@ async function importRules(){
   })
   //Import Them Into JournalEntries
   const rulesFile = await(await fetch(folderPath+'cards.yaml')).text()
-  console.log(rulesFile);
   const rules = jsyaml.safeLoadAll(rulesFile);
-  console.log(rules);
   let zIndex = 10000;
 
   const folderId = (await Folder.create({ name: 'Draft Rules', type: "JournalEntry", parent: null })).id;
@@ -88,10 +88,64 @@ async function importScars() {
 }
 
 async function importEvents(){
-
+  const folderPath = path+'events/'
+  let eventFolderId = game.folders.find(el=>el.name=="Events")
+  if(eventFolderId == undefined){
+    eventFolderId = (await Folder.create({ name: 'Events', type: "Item", parent: null })).id;
+  }
+  const eventsFile = await (await fetch(folderPath+"cards.yaml")).text()
+  const events = jsyaml.safeLoadAll(eventsFile);
+  for(let event of events){
+    for(let i=0; i<event.qty;i++){
+      await Item.create({
+        name: event.namespace.split(".")[0],
+        type: "event",
+        folder: eventFolderId,
+        permission: {default: 3},
+        img: folderPath+`images/${event.imgPath}`
+      })
+    }
+  }
 }
 
 async function importDraftCards(){
+  const folderPath = path+'draft/';
+
+  const draftFolder = (await Folder.create({ name: 'Draft', type: "Item", parent: null })).id;
+  const coinsFolder = (await Folder.create({ name: 'Coins', type: "Item", parent: draftFolder })).id;
+  const placementFolder = (await Folder.create({ name: 'Placement', type: "Item", parent: draftFolder })).id;
+  const troopsFolder = (await Folder.create({ name: 'Troops', type: "Item", parent: draftFolder })).id;
+  const turnFolder = (await Folder.create({ name: 'Turn', type: "Item", parent: draftFolder })).id;
+  const cardsFile = await(await fetch(folderPath+'cards.yaml')).text()
+  
+  const cards = jsyaml.safeLoadAll(cardsFile);
+  for(const card of cards){
+    let folderId = ""
+    if(card.data.type == "coin"){folderId=coinsFolder}
+    else if(card.data.type == "placement"){folderId=placementFolder}
+    else if(card.data.type == "troops"){folderId=troopsFolder}
+    else if(card.data.type == "turn"){folderId=turnFolder}
+
+    await Item.create({
+      name: card.namespace.split(".")[0],
+      img: folderPath+'images/'+card.imgPath,
+      folder: folderId,
+      permission: {default: 3},
+      type: "draft",
+      data: card.data
+    })
+  }
 
 }
 
+async function importMacros(){
+  const folderPath = path+'macros/';
+  const draftSetup = await (await fetch(folderPath+'draftSetup.js')).text();
+  await Macro.create({
+    name: "Draft Setup",
+    type: "script",
+    permission: {default:3},
+    img: folderPath+'images/draft.png',
+    command: draftSetup
+  }, {displaySheet: false});
+}

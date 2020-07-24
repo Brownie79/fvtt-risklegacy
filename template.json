@@ -21,7 +21,10 @@
       "territory",
       "coin",
       "scar",
-      "PDFoundry_PDF"
+      "PDFoundry_PDF",
+      "event",
+      "mission",
+      "draft"
       ],
     "power": {
       "name": "",
@@ -48,6 +51,11 @@
       "code": "",
       "offset": 0,
       "cache": false
+    },
+    "draft":{
+      "players": 3,
+      "placement": 0,
+      "type": ""
     }
   }
 }

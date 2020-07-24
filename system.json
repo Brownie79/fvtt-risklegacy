@@ -14,7 +14,8 @@
     "lib/drop.js"
 ],
   "styles": [
-    "styles/risk.css"
+    "styles/risk.css",
+    "styles/diceroll.css"
   ],
   "packs": [],
   "languages": [],

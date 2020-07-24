@@ -1,4 +1,4 @@
-export class CoinItemSheet extends ItemSheet {
+export class EventItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {

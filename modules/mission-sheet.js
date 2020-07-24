@@ -1,11 +1,11 @@
-export class CoinItemSheet extends ItemSheet {
+export class MissionItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["risk", "territory", "coin"],
-      template: "systems/risklegacy/templates/img_vertical.html",
-      width: 448,
-      height: 635,
+      template: "systems/risklegacy/templates/img_horizontal.html",
+      width: 635,
+      height: 448,
     });
   }
 

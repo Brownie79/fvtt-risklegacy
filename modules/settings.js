@@ -5,15 +5,14 @@ let packs = {}
  * @param packs string[] list of game packs 
 */
 export const registerSettings = (_packs) => {
-  console.log(_packs);
   for(let p of Object.keys(_packs)){
     game.settings.register(system, `${p}-opened`, {
       scope: "world",
       config: false,
       type: Boolean,
       default: false, 
-      onChange: _value => {
-        packs[p].opened = _value;
+      onChange: async (_value) => {
+        //packs[p].opened = _value;
       }
     })
     packs[p] = {
@@ -59,10 +58,12 @@ class SettingsForm extends FormApplication{
     Hooks.on("renderSettingsForm", async () => {
       for(let pack of Object.keys(packs)){
         $(`#${pack}`).on("click", async (evt) => {
-          //game.settings.set(system, `${evt.target.value}-opened`, true);
-          let jsFile = await (await fetch(`systems/risklegacy/assets/unlocks/${pack}/init.js`)).text();
-          console.log(typeof jsFile);
-          eval(jsFile); /// BIG MAGIC
+          if(packs[pack].opened == false){
+            packs[pack].opened = true;
+            let jsFile = await (await fetch(`systems/risklegacy/assets/unlocks/${pack}/init.js`)).text();
+            eval(jsFile); /// BIG MAGIC
+            await game.settings.set(system, `${evt.target.value}-opened`, true);
+          }
         })
       }  
     })
