@@ -217,6 +217,7 @@ async function importMacros(){
   await Macro.create({
     name: "Increase Card Value",
     type: "script",
+    permission: {default:3},
     img: folderPath+'images/plus.png',
     command: increaseCardValue
   }, {displaySheet:false})
