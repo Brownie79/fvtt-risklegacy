@@ -30,6 +30,9 @@ function increaseValue(html){
   if(territory.data.data.value == 6){
     ui.notifications.error("Territory cannot be increased passed 6!")
   } else {
-    territory.update({"data.value":territory.data.data.value+1});
+    let newVal = territory.data.data.value+1
+    territory.update({"data.value":newVal});
+    let newPath = territory.img.replace(/cards.\d/, `cards.${newVal}`) //works regardless of what pack its from
+    territory.update({"img": newPath})
   }
 } 

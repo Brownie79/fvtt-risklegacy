@@ -74,7 +74,7 @@ async function importTerritories() {
   const territories = jsyaml.safeLoadAll(territoriesFile);
   const folderId = (await Folder.create({name: "Territories", type:"Item", parent: null})).id;
   //also create a drawn/discard pile where the cards are moved when drawn
-  await Folder.create({name: "_drawnPile (DON'T TOUCH)", type: "Item", parent: folderId})
+  await Folder.create({name: "_drawnTerritoryPile", type: "Item", parent: folderId})
 
   for(const t of territories){
     await Item.create({
@@ -82,7 +82,7 @@ async function importTerritories() {
       type: "territory",
       folder: folderId,
       permission: {default: 3},
-      img: `systems/risklegacy/assets/unlocks/base/territories/images/${t.imgPath}`,
+      img: folderPath+`images/cards.${t.data.value}/${t.imgPath}`,
       data: {
         coinImg: folderPath+'images/coin.png',
         value: t.data.value,
