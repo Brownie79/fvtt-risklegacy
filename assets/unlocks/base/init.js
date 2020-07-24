@@ -2,6 +2,7 @@
 const path = 'systems/risklegacy/assets/unlocks/base/'
 
 main().then(() => {
+  ui.notifications.info("Finished Importing Base Game!")
   console.log("RISK LEGACY | Finished importing base game!")
 });
 
@@ -13,6 +14,7 @@ async function main(){
   await importCoinCards();
   await importFactions();
   await importStickerSheet();
+  await importMacros();
 }
 
 async function importPowers() {
@@ -71,6 +73,8 @@ async function importTerritories() {
   const territoriesFile = await (await fetch(folderPath+'cards.yaml')).text()
   const territories = jsyaml.safeLoadAll(territoriesFile);
   const folderId = (await Folder.create({name: "Territories", type:"Item", parent: null})).id;
+  //also create a drawn/discard pile where the cards are moved when drawn
+  await Folder.create({name: "_drawnPile (DON'T TOUCH)", type: "Item", parent: folderId})
 
   for(const t of territories){
     await Item.create({
@@ -187,4 +191,34 @@ async function importStickerSheet(){
       })
     }
   }
+}
+
+async function importMacros(){
+  let folderPath = path+'macros/'
+
+  //Draw Territory Card Macro
+  const tCardDrawText = await (await fetch(folderPath+'drawTerritoryCard.js')).text()
+  await Macro.create({
+    name: "Draw Territory Card",
+    type: "script",
+    img: folderPath+'images/continent.png',
+    command: tCardDrawText
+  }, {displaySheet:false})
+  //Reset Game Macro
+  const resetGameMacro = await (await fetch(folderPath+'resetGame.js')).text()
+  await Macro.create({
+    name: "Reset Game",
+    type: "script",
+    img: folderPath+'images/reset.png',
+    command: resetGameMacro
+  }, {displaySheet:false})
+  //Increase Card Value Macro
+  const increaseCardValue = await (await fetch(folderPath+'updateCardValue.js')).text()
+  await Macro.create({
+    name: "Increase Card Value",
+    type: "script",
+    img: folderPath+'images/plus.png',
+    command: increaseCardValue
+  }, {displaySheet:false})
+   
 }

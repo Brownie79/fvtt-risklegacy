@@ -13,7 +13,7 @@ export class FactionActorSheet extends ActorSheet {
       tabs: [{
         navSelector: ".sheet-tabs",
         contentSelector: ".sheet-body",
-        initial: "record"
+        initial: "cards"
       }],
       dragDrop: [{dragSelector: [".power-list", ".power", ".card", ".card-list"], dropSelector: [".power-container", ".card-container", ".scar-container"]}]
     });

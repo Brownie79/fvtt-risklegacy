@@ -17,13 +17,7 @@
     "styles/risk.css"
   ],
   "packs": [],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
-  ],
+  "languages": [],
   "minimumCoreVersion": "0.6.0",
   "compatibleCoreVersion": "0.6.5"
 }
