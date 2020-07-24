@@ -59,7 +59,31 @@ async function importRules(){
   }
 }
 
-async function importScars(){
+async function importScars() {
+  let folderPath = path+'scars/';
+  const scarsFile = await (await fetch(folderPath+'cards.yaml')).text()
+  const scars = jsyaml.safeLoadAll(scarsFile);
+
+  //Scars
+  let folderId = game.folders.find(el=>el.name == "Scars").id
+
+  for (let scarObj of scars){
+    // Create multiple copies of the scar cards
+    for(let i=0; i< scarObj.qty; i++){
+      await Item.create({
+        name: scarObj.namespace.split('.')[0],
+        type: "scar",
+        folder: folderId,
+        permission: {default: 3},
+        img: folderPath+`images/${scarObj.data.tokenImg}`,
+        data: {
+          cardImg: folderPath+"images/"+scarObj.imgPath,
+          tokenImg: folderPath+scarObj.data.tokenImg
+        }
+      })        
+    }
+  }
+
 
 }
 
