@@ -221,4 +221,13 @@ async function importMacros(){
     img: folderPath+'images/plus.png',
     command: increaseCardValue
   }, {displaySheet:false})
+  //Deal Scars Macro
+  const drawScars = await (await fetch(folderPath+'drawScars.js')).text()
+  await Macro.create({
+    name: "Randomly Deal Scars",
+    type: "script",
+    permission: {default:3},
+    img: folderPath+'images/scar.png',
+    command: drawScars
+  }, {displaySheet:false})
 }
