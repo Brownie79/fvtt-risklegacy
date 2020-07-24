@@ -221,5 +221,4 @@ async function importMacros(){
     img: folderPath+'images/plus.png',
     command: increaseCardValue
   }, {displaySheet:false})
-   
 }
