@@ -104,6 +104,13 @@ async function importCoinCards(){
       permission: {default: 3},
       img: 'systems/risklegacy/assets/unlocks/base/territories/images/coin_card.jpg'
     })
+    await Tile.create({
+      img: 'systems/risklegacy/assets/unlocks/base/territories/images/coin_card.jpg',
+      width: 350,
+      height: 500,
+      x: 3950,
+      y: 5050
+    })
   }
 
 }

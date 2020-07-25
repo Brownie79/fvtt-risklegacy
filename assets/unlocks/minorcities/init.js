@@ -89,7 +89,7 @@ async function importScars() {
 
 async function importEvents(){
   const folderPath = path+'events/'
-  let eventFolderId = game.folders.find(el=>el.name=="Events")
+  let eventFolderId = game.folders.find(el=>el.name=="Events")?.id
   if(eventFolderId == undefined){
     eventFolderId = (await Folder.create({ name: 'Events', type: "Item", parent: null })).id;
   }

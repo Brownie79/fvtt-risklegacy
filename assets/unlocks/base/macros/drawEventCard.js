@@ -14,7 +14,7 @@ async function main(){
     img: drawnCard.img,
     width: 350,
     height: 500,
-    x: 3550,
-    y: 5100
+    x: 4900,
+    y: 5050
   })
 }
