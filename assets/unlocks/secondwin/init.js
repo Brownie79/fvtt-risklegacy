@@ -92,7 +92,7 @@ async function importStickerSheet(){
 async function importMissions(){
   const folderPath = path + 'missions/';
   const file = await (await fetch(folderPath+'cards.yaml')).text()
-  const missions = jsyaml.safeLoadAll(missions);
+  const missions = jsyaml.safeLoadAll(file);
 
   //create a missions folder if one doesn't exist
   let folder = game.folders.find(el=>el.name=="Missions")?.id
