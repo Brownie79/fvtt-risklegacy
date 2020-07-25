@@ -12,6 +12,6 @@ async function main(){
     width: 350,
     height: 500,
     x: 3550,
-    y: 5100
+    y: 5050
   })
 }

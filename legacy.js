@@ -34,7 +34,7 @@ Hooks.once('ready', async () => {
   registerSettings(gamepacks);
   if(game.settings.get('risklegacy', 'initalized') == false){
     //Create new scene with Map
-    await Scene.create({
+    Scene.create({
       name:"Map",
       active: true,
       gridType: 0,
@@ -43,13 +43,14 @@ Hooks.once('ready', async () => {
       height: 4000,
       width: 6000,
       img: "systems/risklegacy/assets/board/original.jpg"
-    })
-    await Tile.create({
-      img: 'systems/risklegacy/assets/board/sideboard.jpg',
-      x: 3500,
-      y: 5000,
-      width: 2200,
-      height: 1300
+    }).then(() => {
+      Tile.create({
+        img: 'systems/risklegacy/assets/board/sideboard.jpg',
+        x: 3500,
+        y: 5000,
+        width: 2200,
+        height: 1300
+      })
     })
     game.settings.set('risklegacy', 'initalized', true);
   } 

@@ -74,7 +74,6 @@ async function importTerritories() {
   const territories = jsyaml.safeLoadAll(territoriesFile);
   const folderId = (await Folder.create({name: "Territories", type:"Item", parent: null})).id;
   //also create a drawn/discard pile where the cards are moved when drawn
-  await Folder.create({name: "_drawnTerritoryPile", type: "Item", parent: folderId})
   await Folder.create({name: "_onBoardPile", type: "Item", parent: folderId})
 
   for(const t of territories){
@@ -96,6 +95,7 @@ async function importTerritories() {
 
 async function importCoinCards(){
   const folderId = (await Folder.create({name: "Coin Card", type:"Item", parent: null})).id;
+  await Folder.create({name: "_drawnCoinCards", type: "Item", parent: folderId})
   for(let i=0; i<10; i++){
     await Item.create({
       name: "coin_card",
@@ -230,5 +230,23 @@ async function importMacros(){
     permission: {default:3},
     img: folderPath+'images/scar.png',
     command: drawScars
+  }, {displaySheet:false})
+  //Draw Mission Card Macro
+  const missionCards = await (await fetch(folderPath+'drawMissionCard.js')).text()
+  await Macro.create({
+    name: "Draw Mission Card",
+    type: "script",
+    permission: {default:3},
+    img: folderPath+'images/mission.png',
+    command: missionCards
+  }, {displaySheet:false})
+  //Draw Event Cards Macro
+  const drawEvent = await (await fetch(folderPath+'drawEventCard.js')).text()
+  await Macro.create({
+    name: "Draw Event Card",
+    type: "script",
+    permission: {default:3},
+    img: folderPath+'images/event.png',
+    command: drawEvent
   }, {displaySheet:false})
 }
