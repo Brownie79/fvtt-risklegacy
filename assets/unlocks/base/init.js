@@ -23,14 +23,15 @@ async function importPowers() {
   const powers = jsyaml.safeLoadAll(powersFile);
 
   //Create Folder for Starting Powers
-  let folderId = (await Folder.create({ name: 'Starting Powers', type: "Item", parent: null })).id;
+  const powersFolder = (await Folder.create({ name: 'Powers', type: "Item", parent: null })).id;
+  let folderId = (await Folder.create({ name: 'Starting Powers', type: "Item", parent: powersFolder })).id;
 
 
   for(let powerObj of powers){
     await Item.create({
       name: powerObj.namespace.split('.')[0],
       type: "power",
-      img: 'systems/risklegacy/assets/unlocks/base/powers/power.png',
+      img: 'systems/risklegacy/assets/unlocks/base/powers/starter.png',
       folder: folderId,
       permission: {default: 3},
       data: {
@@ -64,8 +65,6 @@ async function importScars() {
       })        
     }
   }
-
-
 }
 
 async function importTerritories() {

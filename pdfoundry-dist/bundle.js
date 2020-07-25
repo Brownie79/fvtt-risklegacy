@@ -1435,7 +1435,7 @@ class PDFSetup {
         }
         finally {
             if (!viewed) {
-                PDFoundryAPI_1.PDFoundryAPI.showHelp();
+                //PDFoundryAPI_1.PDFoundryAPI.showHelp();
             }
         }
     }

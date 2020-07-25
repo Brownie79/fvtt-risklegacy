@@ -33,6 +33,6 @@ function resetDrawnTerritoryPile(){
   }
 
   for(const card2 of onboardFolder.content){
-    card.update({"folder": territoryFolder.id})
+    card2.update({"folder": territoryFolder.id})
   }
 }

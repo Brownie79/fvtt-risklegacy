@@ -84,7 +84,7 @@ async function importStickerSheet(){
       type: "scar",
       folder: worldCapitalFolder,
       permission: {default: 3},
-      img: folder+`images/${sticker.imgPath}`
+      img: folderPath+`images/${sticker.imgPath}`
     })
   }
 }
@@ -106,7 +106,7 @@ async function importMissions(){
       type:"mission",
       folder: folder,
       permission: {default: 3},
-      img: mission.imgPath
+      img: folderPath+'images/'+mission.imgPath
     })
   }
 
