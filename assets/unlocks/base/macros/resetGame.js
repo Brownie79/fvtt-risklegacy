@@ -23,9 +23,16 @@ function deleteActorTerritoryCards(){
 
 function resetDrawnTerritoryPile(){
   let drawnPileFolder = game.folders.find(el=>el.name=="_drawnTerritoryPile")
+  let onboardFolder = game.folders.find(el=>el.name=="_onBoardPile")
+
   let territoryFolder = game.folders.find(el=>el.name=="Territories")
 
   for(const card of drawnPileFolder.content){
     card.update({"folder": territoryFolder.id})
   }
+
+  for(const card2 of onboardFolder.content){
+    card.update({"folder": territoryFolder.id})
+  }
+
 }

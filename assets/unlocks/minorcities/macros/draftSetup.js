@@ -43,7 +43,46 @@ async function placeCards(playerNum){
         img: coin.img,
         x: _x,
         y: _y,
-        z: card.data.data.placement,
+        z: coin.data.data.z,
+        height: cardHeight,
+        width: cardWidth,
+      })
+    }
+  }
+
+  for(const placement of placementFolder.content){
+    if(placement.data.data.players <= playerNum){
+      await Tile.create({
+        img: placement.img,
+        x: _x + ((cardWidth + 20 ) * 1 ),
+        y: _y,
+        z: placement.data.data.z,
+        height: cardHeight,
+        width: cardWidth,
+      })
+    }
+  }
+
+  for(const troops of troopsFolder.content){
+    if(troops.data.data.players <= playerNum){
+      await Tile.create({
+        img: troops.img,
+        x: _x + ((cardWidth + 20 ) * 3 ),
+        y: _y,
+        z: troops.data.data.z,
+        height: cardHeight,
+        width: cardWidth,
+      })
+    }
+  }
+
+  for(const turn of turnFolder.content){
+    if(turn.data.data.players <= playerNum){
+      await Tile.create({
+        img: turn.img,
+        x: _x + ((cardWidth + 20 ) * 2 ),
+        y: _y,
+        z: turn.data.data.z,
         height: cardHeight,
         width: cardWidth,
       })

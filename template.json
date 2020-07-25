@@ -54,7 +54,7 @@
     },
     "draft":{
       "players": 3,
-      "placement": 0,
+      "z": 0,
       "type": ""
     }
   }

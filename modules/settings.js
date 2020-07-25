@@ -5,15 +5,19 @@ let packs = {}
  * @param packs string[] list of game packs 
 */
 export const registerSettings = (_packs) => {
+  game.settings.register(system, "initalized", {
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: false
+  })
+
   for(let p of Object.keys(_packs)){
     game.settings.register(system, `${p}-opened`, {
       scope: "world",
       config: false,
       type: Boolean,
       default: false, 
-      onChange: async (_value) => {
-        //packs[p].opened = _value;
-      }
     })
     packs[p] = {
       name: p, 
@@ -29,7 +33,6 @@ export const registerSettings = (_packs) => {
     type: SettingsForm,
     restricted: true,
   })
-
 }
 
 class SettingsForm extends FormApplication{

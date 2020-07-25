@@ -75,6 +75,7 @@ async function importTerritories() {
   const folderId = (await Folder.create({name: "Territories", type:"Item", parent: null})).id;
   //also create a drawn/discard pile where the cards are moved when drawn
   await Folder.create({name: "_drawnTerritoryPile", type: "Item", parent: folderId})
+  await Folder.create({name: "_onBoardPile", type: "Item", parent: folderId})
 
   for(const t of territories){
     await Item.create({
