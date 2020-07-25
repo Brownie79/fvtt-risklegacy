@@ -12,6 +12,13 @@ export const registerSettings = (_packs) => {
     default: false
   })
 
+  game.settings.register(system, "variant", {
+    scope: "world",
+    config: false,
+    type: String,
+    default: "original"
+  })
+
   for(let p of Object.keys(_packs)){
     game.settings.register(system, `${p}-opened`, {
       scope: "world",

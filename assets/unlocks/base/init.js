@@ -1,4 +1,7 @@
 'use strict';
+
+const { system } = require("../../../modules/settings");
+
 const path = 'systems/risklegacy/assets/unlocks/base/'
 
 main().then(() => {
@@ -74,6 +77,7 @@ async function importTerritories() {
   const folderId = (await Folder.create({name: "Territories", type:"Item", parent: null})).id;
   //also create a drawn/discard pile where the cards are moved when drawn
   await Folder.create({name: "_onBoardPile", type: "Item", parent: folderId})
+  const variant = game.settings.get('risklegacy', 'variant');
 
   for(const t of territories){
     await Item.create({
@@ -81,7 +85,7 @@ async function importTerritories() {
       type: "territory",
       folder: folderId,
       permission: {default: 3},
-      img: folderPath+`images/cards.${t.data.value}/${t.imgPath}`,
+      img: folderPath+`images/${variant}/cards.${t.data.value}/${t.imgPath}`,
       data: {
         coinImg: folderPath+'images/coin.png',
         value: t.data.value,
@@ -89,7 +93,6 @@ async function importTerritories() {
       }
     })
   }  
-
 }
 
 async function importCoinCards(){

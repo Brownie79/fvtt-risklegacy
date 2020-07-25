@@ -33,26 +33,30 @@ Hooks.once('ready', async () => {
   let gamepacks = jsyaml.safeLoad(await (await fetch('systems/risklegacy/assets/unlocks/unlocks.yaml')).text()).packs;
   registerSettings(gamepacks);
   if(game.settings.get('risklegacy', 'initalized') == false){
-    //Create new scene with Map
-    Scene.create({
-      name:"Map",
-      active: true,
-      gridType: 0,
-      tokenVision: false,
-      globalLight: true,
-      height: 4000,
-      width: 6000,
-      img: "systems/risklegacy/assets/board/original.jpg"
-    }).then(() => {
-      Tile.create({
-        img: 'systems/risklegacy/assets/board/sideboard.jpg',
-        x: 3500,
-        y: 5000,
-        width: 2200,
-        height: 1300
-      })
-    })
-    game.settings.set('risklegacy', 'initalized', true);
+    const template = `
+    <div class="form-group" style="display:flex; flex:column">
+      <h1>Variant?</h1>
+      <select id="variant">
+        <option>Original</option>
+        <option>Advanced</option>
+      </select>
+    </div>
+    `
+
+    new Dialog({
+      title: "Variant", 
+      content: ``,
+      buttons: {
+        "ok":{
+          label: "Build World",
+          callback: async (html)=>{
+            let variant = html.find("#variant")[0].value.toLowerCase();
+            await game.settings.set('risklegacy', 'variant', variant)
+            setup();
+          }
+        }
+      }
+    }).render(true);
   } 
 }); 
 
@@ -64,3 +68,28 @@ Hooks.on("renderJournalDirectory", (app, html, data) => {
     ui.PDFoundry.openURL('systems/risklegacy/assets/rules.pdf');
   })
 })
+
+async function setup(){
+  let variant = game.settings.get('risklegacy', 'variant')
+    //Create new scene with Map
+    Scene.create({
+      name:"Map",
+      active: true,
+      gridType: 0,
+      tokenVision: false,
+      globalLight: true,
+      height: 4000,
+      width: 6000,
+      img: `systems/risklegacy/assets/board/${variant}.jpg`
+    }).then(() => {
+      Tile.create({
+        img: 'systems/risklegacy/assets/board/sideboard.jpg',
+        x: 3500,
+        y: 5000,
+        width: 2200,
+        height: 1300
+      })
+    })
+    game.settings.set('risklegacy', 'initalized', true);
+
+}

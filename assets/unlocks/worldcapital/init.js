@@ -1,9 +1,9 @@
 'use strict';
-const path = 'systems/risklegacy/assets/unlocks/eliminated/';
+const path = 'systems/risklegacy/assets/unlocks/worldcapital/';
 
 if(game.settings.get('risklegacy', 'base-opened')){
   main().then(()=> {
-    ui.notifications.info("Finished Importing Eliminated Pack!")
+    ui.notifications.info("Finished Importing World Capital Pack!")
   })
 } else {
   ui.notifications.error("Please open the Base Pack First");
@@ -12,9 +12,10 @@ if(game.settings.get('risklegacy', 'base-opened')){
 
 async function main(){
   await importRules();
+  await importMissions();
   await importPowers();
-  await importScars();
 }
+
 
 async function importRules(){
   const folderPath = path+'rules/'
@@ -22,21 +23,12 @@ async function importRules(){
   const centerY = canvas.dimensions.height / 4
 
   //Turn Them Into Tiles
-  // First the Biohazard Tile:
-  let mercenary_rules_tex = await loadTexture(folderPath+'images/mercenary_rules.jpg')
-  await Tile.create({
-    img: folderPath+'images/mercenary_rules.jpg',
-    x: centerX,
-    y: centerY,
-    width:mercenary_rules_tex.width,
-    height: mercenary_rules_tex.height
-  })
   //Import Them Into JournalEntries
   const rulesFile = await(await fetch(folderPath+'cards.yaml')).text()
   const rules = jsyaml.safeLoadAll(rulesFile);
   let zIndex = 10000;
 
-  const folderId = (await Folder.create({ name: 'Knockout Rules', type: "JournalEntry", parent: null })).id;
+  const folderId = (await Folder.create({ name: 'World Capital Rules', type: "JournalEntry", parent: null })).id;
 
   for(const rule of rules){
     let _tex = await loadTexture(folderPath+'images/'+rule.imgPath);
@@ -56,20 +48,19 @@ async function importRules(){
     }, {renderSheet: false})
   }
 }
-
 async function importPowers() {
   let folderPath = path + 'powers/'
   const powersFile = await (await fetch(folderPath+'cards.yaml')).text()
   const powers = jsyaml.safeLoadAll(powersFile);
 
   //Create Folder for Starting Powers
-  let folderId = (await Folder.create({ name: 'Knockout Powers', type: "Item", parent: game.folders.find(el=>el.name=="Powers").id })).id;
+  let folderId = (await Folder.create({ name: 'Mission Powers', type: "Item", parent: game.folders.find(el=>el.name=="Powers").id })).id;
 
   for(let powerObj of powers){
     await Item.create({
       name: powerObj.namespace.split('.')[0],
       type: "power",
-      img: folderPath + 'images/knockout.png',
+      img: folderPath + 'images/mission.png',
       folder: folderId,
       permission: {default: 3},
       data: {
@@ -79,28 +70,25 @@ async function importPowers() {
     })
   }
 }
+async function importMissions(){
+  const folderPath = path + 'missions/';
+  const file = await (await fetch(folderPath+'cards.yaml')).text()
+  const missions = jsyaml.safeLoadAll(file);
 
-async function importScars() {
-  let folderPath = path+'scars/';
-  const scarsFile = await (await fetch(folderPath+'cards.yaml')).text()
-  const scars = jsyaml.safeLoadAll(scarsFile);
-
-  //Scars
-  let folderId = game.folders.find(el=>el.name == "Scars").id;
-  for (let scarObj of scars){
-    // Create multiple copies of the scar cards
-    for(let i=0; i< scarObj.qty; i++){
-      await Item.create({
-        name: scarObj.namespace.split('.')[0],
-        type: "scar",
-        folder: folderId,
-        permission: {default: 3},
-        img: folderPath+`images/${scarObj.data.tokenImg}`,
-        data: {
-          cardImg: folderPath+"images/"+scarObj.imgPath,
-          tokenImg: folderPath+scarObj.data.tokenImg
-        }
-      })        
-    }
+  //create a missions folder if one doesn't exist
+  let folder = game.folders.find(el=>el.name=="Missions")?.id
+  if(folder==undefined){
+    folder = await Folder.create({name:"Missions", type:"Item", parent: null })
   }
+
+  for(const mission of missions){
+    await Item.create({
+      name: mission.namespace.split(".")[0],
+      type:"mission",
+      folder: folder,
+      permission: {default: 3},
+      img: folderPath+'images/'+mission.imgPath
+    })
+  }
+
 }
