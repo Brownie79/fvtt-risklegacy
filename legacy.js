@@ -57,6 +57,8 @@ Hooks.once('ready', async () => {
         }
       }
     }).render(true);
+  } else {
+    canvas.pan({x:5500,y:3000,scale:0})
   } 
 }); 
 
@@ -89,7 +91,9 @@ async function setup(){
         width: 2200,
         height: 1300
       })
+      //zooms out for the client
+      canvas.pan({x:5500,y:3000,scale:0})
     })
     game.settings.set('risklegacy', 'initalized', true);
-
+    
 }

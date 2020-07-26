@@ -13,5 +13,3 @@ packs:
     description: Open when three missiles are used on the same combat roll.
   thirtytroops:
     description: Open when someone is about to place 30+ troops on the board and has a missile.
-  theend:
-    description: DO NOT OPEN. EVER. 

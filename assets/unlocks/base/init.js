@@ -248,7 +248,7 @@ async function importMacros(){
   }, {displaySheet:false})
 
   //Setup Coin Cards In the Beginning
-  const setupCoin = await (await fetch(folderPath+'setupCoinCard.js')).text()
+  const setupCoin = await (await fetch(folderPath+'setupCoinCards.js')).text()
   await Macro.create({
     name: "Place Coin Cards",
     type: "script",

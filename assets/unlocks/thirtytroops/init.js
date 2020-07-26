@@ -1,22 +1,22 @@
 'use strict';
-const path = 'systems/risklegacy/assets/unlocks/threemissiles/';
+const path = 'systems/risklegacy/assets/unlocks/thirtytroops/';
 
 if(game.settings.get('risklegacy', 'base-opened')){
   main().then(()=> {
-    ui.notifications.info("Finished Importing Three Missiles Pack!")
+    ui.notifications.info("Finished Importing Thirty Troops Pack!")
   })
 } else {
   ui.notifications.error("Please open the Base Pack First");
 }
 
-
 async function main(){
-  await importRules();
-  await importEvents();
-  await importPowers();
-  await importScars();
-  await importFactions();
-  await importSecretMutantPowers();
+  await importRules()
+  await importEvents()
+  await importPowers()
+  await importScars()
+  await importFaction()
+  await importStickerSheet()
+  await importTerritories()
 }
 
 async function importRules(){
@@ -30,7 +30,7 @@ async function importRules(){
   const rules = jsyaml.safeLoadAll(rulesFile);
   let zIndex = 10000;
 
-  const folderId = (await Folder.create({ name: 'Nuclear Option Rules', type: "JournalEntry", parent: null })).id;
+  const folderId = (await Folder.create({ name: 'Alien Rules', type: "JournalEntry", parent: null })).id;
 
   for(const rule of rules){
     let _tex = await loadTexture(folderPath+'images/'+rule.imgPath);
@@ -50,6 +50,7 @@ async function importRules(){
     }, {renderSheet: false})
   }
 }
+
 async function importEvents(){
   const folderPath = path+'events/'
   let eventFolderId = game.folders.find(el=>el.name=="Events")?.id
@@ -77,34 +78,17 @@ async function importPowers() {
   const powers = jsyaml.safeLoadAll(powersFile);
 
   //Create Folder for Starting Powers
-  let folderId = (await Folder.create({ name: 'Missile Powers', type: "Item", parent: game.folders.find(el=>el.name=="Powers").id })).id;
-  console.log(powers);
+  let folderId = (await Folder.create({ name: 'Weaknesses', type: "Item", parent: game.folders.find(el=>el.name=="Powers").id })).id;
   for(let powerObj of powers){
     await Item.create({
       name: powerObj.namespace.split('.')[0],
       type: "power",
-      img: folderPath + 'images/missile.png',
+      img: folderPath + 'images/weakness.png',
       folder: folderId,
       permission: {default: 3},
-      data: {
-        description: powerObj.data.description,
-        type: powerObj.data.type
-      }
+      data: powerObj.data
     })
   }
-
-  //add Bringer of Nuclear Fire as a Red Power
-  await Item.create({
-    name: "Bringer of Nuclear Fire",
-    type: "power",
-    img: folderPath + 'images/nuclear.png',
-    folder: game.folders.find(el=>el.name=="Powers").id,
-    permission: {default: 3},
-    data: {
-      description: "Bringer of Nuclear Fire: Start with 2 extra Missile Tokens if the Mutant faction is also in play.",
-      type: "mission" //not actually mission, we just want it to be red
-    }
-  })
 }
 
 async function importScars() {
@@ -113,26 +97,25 @@ async function importScars() {
   const scars = jsyaml.safeLoadAll(scarsFile);
 
   //Scars
-  let folderId = game.folders.find(el=>el.name=="Scars").id;
+  let folderId = game.folders.find(el=>el.name == "Scars").id
+
   for (let scarObj of scars){
     // Create multiple copies of the scar cards
-    for(let i=0; i< scarObj.qty; i++){
-      await Item.create({
-        name: scarObj.namespace.split('.')[0],
-        type: "scar",
-        folder: folderId,
-        permission: {default: 3},
-        img: folderPath+`images/${scarObj.data.tokenImg}`,
-        data: {
-          cardImg: folderPath+"images/"+scarObj.imgPath,
-          tokenImg: folderPath+scarObj.data.tokenImg
-        }
-      })        
-    }
+    await Item.create({
+      name: scarObj.namespace.split('.')[0],
+      type: "scar",
+      folder: folderId,
+      permission: {default: 3},
+      img: folderPath+`images/${scarObj.data.tokenImg}`,
+      data: {
+        cardImg: folderPath+"images/"+scarObj.imgPath,
+        tokenImg: folderPath+scarObj.data.tokenImg
+      }
+    })        
   }
 }
 
-async function importFactions(){
+async function importFaction(){
   const folderPath = path+'factions/'
   const factionsFile = await (await fetch(folderPath+'cards.yaml')).text()
   const factionObj = jsyaml.safeLoad(factionsFile);
@@ -149,54 +132,45 @@ async function importFactions(){
 
   //give the mutant faction their starting powers
   faction.createOwnedItem({
-    name: "mutant_mission",
+    name: "alien_mission",
     type: "power",
     data: {
-      "description": "Controlling all bio-hazard terriotories and the fallout territory earns you 1 Red Star",
+      "description": "Controlling every city on the board earns you 2 Red Stars",
       "type": "mission"
     }
   })
   faction.createOwnedItem({
-    name: "mutant_knockout_1",
+    name: "alien_knockout",
     type: "power",
     data: {
-      "description": "When attacking the Bringer of Nuclear Fire's troops, you may re-roll 1's on all attack dice until they are no longer 1's",
+      "description": "When recruiting, you get 2 extra troops if you control Alien Island and 1 extra troop for every Ruin you control.",
       "type": "knockout"
     }
   })
   faction.createOwnedItem({
-    name: "mutant_knockout_2",
+    name: "alien_starter",
     type: "power",
     data: {
-      "description": "Bio-hazard and mercenary scar effects are reversed for you",
-      "type": "knockout"
-    }
-  })
-
-  faction.createOwnedItem({
-    name: "mutant_mission",
-    type: "power",
-    data: {
-      "description": "You don't lose troops in the fallout territory or from Mutant Event Cards",
+      "description": "You do not lose troops expanding into enemy cities",
       "type": "starter"
     }
   })
 
   faction.createOwnedItem({
-    name: "mutant_limitation",
+    name: "alien_limitations",
     type: "power",
     data: {
-      "description": "Cannot take a missile power",
-      "type": "missile"
+      "description": "You cannot be given a weakness.",
+      "type": "weakness"
     }
   })
 
   faction.createOwnedItem({
-    name: "mutant_limitation",
+    name: "alien_limitations",
     type: "power",
     data: {
-      "description": "Cannot take additional knockout powers",
-      "type": "knockout"
+      "description": "You cannot be given a missile power.",
+      "type": "missile"
     }
   })
 
@@ -230,30 +204,42 @@ async function importFactions(){
   })
 }
 
-async function importSecretMutantPowers(){
-  let folderPath = path + "secretmutantpowers/"
-  let file = await (await fetch(folderPath+'cards.yaml')).text()
-  let powers = jsyaml.safeLoadAll(file)
+async function importStickerSheet(){
+  let folderPath = path + 'stickersheet/';
+  let stickerSheetFolder = game.folders.find(el=>el.name=="Sticker Sheet").id
+  let folder = (await Folder.create({ name: 'Ruins', type: "Item", parent: stickerSheetFolder })).id;
 
-  let powersFolderId = game.folders.find(el=>el.name=="Powers").id;
-  let mutantPowersID = (await Folder.create({
-    name: "DO NOT OPEN UNTIL EVENT!",
-    type: "Item",
-    parent: powersFolderId
-  })).id
-  for(let power of powers){
-    let powerFolderId = (await Folder.create({
-      name: `${power.namespace.split(".")[0]}`,
-      type: "Item",
-      parent: mutantPowersID
-    })).id
+  let stickersFile = await (await fetch(folderPath+'cards.yaml')).text()
+  let sticker = jsyaml.safeLoad(stickersFile);
+
+  await Item.create({
+    name: sticker.namespace.split(".")[0],
+    type: "scar",
+    folder: folder,
+    permission: {default: 3},
+    img: folderPath+`images/${sticker.imgPath}`
+  })
+
+}
+
+async function importTerritories() {
+  const folderPath = path+'territories/'
+  const territoriesFile = await (await fetch(folderPath+'cards.yaml')).text()
+  const territories = jsyaml.safeLoadAll(territoriesFile);
+  const folderId = game.folders.find(el=>el.name=="Territories").id;
+
+  for(const t of territories){
     await Item.create({
-      name: power.namespace.split(".")[1],
-      type: "power",
-      img: folderPath+'images/mutant.png',
-      data: power.data,
-      folder: powerFolderId,
-      permission: {default: 3}
+      name: t.namespace.split(".")[0],
+      type: "territory",
+      folder: folderId,
+      permission: {default: 3},
+      img: folderPath+`images/cards.${t.data.value}/${t.imgPath}`,
+      data: {
+        coinImg: folderPath+'images/coin.png',
+        value: t.data.value,
+        contient: t.data.continent
+      }
     })
-  }
+  }  
 }
