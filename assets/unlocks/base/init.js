@@ -1,9 +1,5 @@
 'use strict';
-
-const { system } = require("../../../modules/settings");
-
 const path = 'systems/risklegacy/assets/unlocks/base/'
-
 main().then(() => {
   ui.notifications.info("Finished Importing Base Game!")
   console.log("RISK LEGACY | Finished importing base game!")

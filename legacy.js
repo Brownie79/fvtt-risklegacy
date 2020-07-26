@@ -34,18 +34,18 @@ Hooks.once('ready', async () => {
   registerSettings(gamepacks);
   if(game.settings.get('risklegacy', 'initalized') == false){
     const template = `
-    <div class="form-group" style="display:flex; flex:column">
+    <div class="form-group" style="display:flex; flex-direction:column">
       <h1>Variant?</h1>
       <select id="variant">
-        <option>Original</option>
-        <option>Advanced</option>
+        <option value="original">Original</option>
+        <option value="advanced">Advanced</option>
       </select>
     </div>
     `
 
     new Dialog({
       title: "Variant", 
-      content: ``,
+      content: template,
       buttons: {
         "ok":{
           label: "Build World",

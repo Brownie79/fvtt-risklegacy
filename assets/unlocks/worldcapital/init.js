@@ -16,7 +16,6 @@ async function main(){
   await importPowers();
 }
 
-
 async function importRules(){
   const folderPath = path+'rules/'
   const centerX = canvas.dimensions.width / 4
