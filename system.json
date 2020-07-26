@@ -2,7 +2,7 @@
   "name": "risklegacy",
   "title": "Risk: Legacy",
   "description": "Port of the Risk:Legacy Board Game to Foundry VTT",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "templateVersion": 2,
   "author": "spacemandev",
   "scripts": [],
