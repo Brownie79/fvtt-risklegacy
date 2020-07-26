@@ -102,15 +102,7 @@ async function importCoinCards(){
       permission: {default: 3},
       img: 'systems/risklegacy/assets/unlocks/base/territories/images/coin_card.jpg'
     })
-    await Tile.create({
-      img: 'systems/risklegacy/assets/unlocks/base/territories/images/coin_card.jpg',
-      width: 350,
-      height: 500,
-      x: 3950,
-      y: 5050
-    })
   }
-
 }
 
 async function importFactions(){
@@ -253,5 +245,15 @@ async function importMacros(){
     permission: {default:3},
     img: folderPath+'images/event.png',
     command: drawEvent
+  }, {displaySheet:false})
+
+  //Setup Coin Cards In the Beginning
+  const setupCoin = await (await fetch(folderPath+'setupCoinCard.js')).text()
+  await Macro.create({
+    name: "Place Coin Cards",
+    type: "script",
+    permission: {default:3},
+    img: folderPath+'images/coin.png',
+    command: setupCoin
   }, {displaySheet:false})
 }
