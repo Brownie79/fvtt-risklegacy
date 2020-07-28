@@ -150,6 +150,10 @@ async function importFactions(){
       img: folderPath+'/images/'+faction.data.hq_img,
       folder: folderId,
       permission: {default: 3},
+      token: {
+        width: 3,
+        height: 3
+      }
     })
   }
 }

@@ -5,7 +5,7 @@ data:
 --- 
 namespace: khan_2.powers.base.risklegacy.spacemandev
 data:
-  description: "When drawing a territory card, you may place one tropp into that territory if you control it."
+  description: "When drawing a territory card, you may place one troop into that territory if you control it."
   type: starter
 --- 
 namespace: mechaniker_1.powers.base.risklegacy.spacemandev
