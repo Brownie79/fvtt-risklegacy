@@ -38,12 +38,12 @@ data:
   description: "You still draw a resource card at the end of your turn where you expanded into 4+ territories, even if you didn't conquer a territory."
   type: starter
 --- 
-namespace: sharan_1.powers.base.risklegacy.spacemandev
+namespace: saharan_1.powers.base.risklegacy.spacemandev
 data:
   description: "You can make your maneuver at any point during your turn."
   type: starter
 --- 
-namespace: sharan_2.powers.base.risklegacy.spacemandev
+namespace: saharan_2.powers.base.risklegacy.spacemandev
 data:
   description: "When making your manuever, you may manuever between any two territories you control, even if they are not connected."
   type: starter
