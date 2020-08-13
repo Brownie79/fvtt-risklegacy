@@ -20,8 +20,8 @@
   "packs": [],
   "languages": [],
   "minimumCoreVersion": "0.6.0",
-  "compatibleCoreVersion": "0.6.5",
+  "compatibleCoreVersion": "0.7.0",
   "url": "https://github.com/Brownie79/fvtt-risklegacy",
-  "manifest": "https://github.com/Brownie79/fvtt-card-support/releases/download/latest/system.json",
-  "download": "https://github.com/Brownie79/fvtt-card-support/releases/download/latest/system.zip"
+  "manifest": "https://github.com/Brownie79/fvtt-risklegacy/releases/download/latest/system.json",
+  "download": "https://github.com/Brownie79/fvtt-risklegacy/releases/download/latest/system.zip"
 }
