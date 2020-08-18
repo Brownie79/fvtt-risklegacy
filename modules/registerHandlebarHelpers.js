@@ -34,7 +34,7 @@ Hooks.once("ready", async () => {
     });
 
     Handlebars.registerHelper('length', (obj) => {
-        return obj.length || obj.toString().length;
+        return obj?.length || obj?.toString().length;
     });
 
     Handlebars.registerHelper('offset', (obj, num) => {
